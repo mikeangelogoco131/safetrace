@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { supabase } from '@/lib/supabaseClient';
+import { getUserOrSession } from '@/lib/getCurrentUser';
 
 const MapView = dynamic(() => import('@/components/MapView'), {
   ssr: false,
@@ -16,15 +17,16 @@ export default function MapPage() {
 
   useEffect(() => {
     const fetchSessionAndAlerts = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session) {
+      const { user, session } = await getUserOrSession();
+      const effectiveUser = user || session?.user;
+
+      if (effectiveUser) {
         const { data, error } = await supabase
           .from('alerts')
           .select('*')
-          .eq('user_id', session.user.id)
+          .eq('user_id', effectiveUser.id)
           .order('created_at', { ascending: false });
-          
+
         if (!error && data) {
           setAlerts(data);
         }

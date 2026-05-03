@@ -3,18 +3,17 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
+import { getUserOrSession } from '@/lib/getCurrentUser';
 
 export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        router.push('/dashboard');
-      } else {
-        router.push('/login');
-      }
+      const { user, session } = await getUserOrSession();
+      const effectiveUser = user || session?.user;
+      if (effectiveUser) router.push('/dashboard');
+      else router.push('/login');
     };
     checkAuth();
   }, [router]);

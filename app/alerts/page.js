@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { getUserOrSession } from '@/lib/getCurrentUser';
+import { formatDate, formatTime } from '@/utils/formatDateTime';
 import Link from 'next/link';
 import { Map, MapPin } from 'lucide-react';
 
@@ -14,12 +16,13 @@ export default function AlertsHistory() {
   }, []);
 
   const fetchSessionAndAlerts = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
+    const { user, session } = await getUserOrSession();
+    const effectiveUser = user || session?.user;
+    if (effectiveUser) {
       const { data, error } = await supabase
         .from('alerts')
         .select('*')
-        .eq('user_id', session.user.id)
+        .eq('user_id', effectiveUser.id)
         .order('created_at', { ascending: false });
 
       if (!error && data) {
@@ -56,10 +59,10 @@ export default function AlertsHistory() {
                 <tr key={alert.id} className="border-b border-slate-100 hover:bg-slate-50 transition last:border-0">
                   <td className="py-4 px-6">
                     <div className="font-medium text-slate-900">
-                      {new Date(alert.created_at).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
+                      {formatDate(alert.created_at)}
                     </div>
                     <div className="text-sm font-semibold text-slate-500">
-                      {new Date(alert.created_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' })}
+                      {formatTime(alert.created_at)}
                     </div>
                   </td>
                   <td className="py-4 px-6">{alert.latitude.toFixed(6)}</td>

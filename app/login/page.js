@@ -18,16 +18,26 @@ export default function Login() {
     setError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) throw error;
-      
-      router.push('/dashboard');
+
+      const session = data?.session || (await supabase.auth.getSession())?.data?.session;
+      if (!session) {
+        throw new Error('Login succeeded but the session was not established. Please try again.');
+      }
+
+      window.location.assign('/dashboard');
     } catch (err) {
-      setError(err.message);
+      const message = err.message || 'Unable to sign in.';
+      if (message.toLowerCase().includes('email not confirmed') || message.toLowerCase().includes('email not verified')) {
+        setError('Please verify your email address before logging in. Check your inbox for the confirmation link.');
+      } else {
+        setError(message);
+      }
     } finally {
       setLoading(false);
     }
@@ -48,7 +58,7 @@ export default function Login() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full mt-1 p-2 border border-slate-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-600" 
             />
           </div>
           <div>
@@ -58,7 +68,7 @@ export default function Login() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full mt-1 p-2 border border-slate-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-600" 
             />
           </div>
           <button 
@@ -72,6 +82,9 @@ export default function Login() {
         
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account? <Link href="/register" className="text-blue-600 hover:underline">Register</Link>
+        </div>
+        <div className="mt-2 text-center text-sm">
+          <Link href="/forgot-password" className="text-blue-600 hover:underline">Forgot your password?</Link>
         </div>
       </div>
     </div>

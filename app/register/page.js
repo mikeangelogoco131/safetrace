@@ -20,16 +20,24 @@ export default function Register() {
     setError(null);
 
     try {
+      const callbackUrl = `${window.location.origin}/auth/callback?next=/dashboard`;
+
       // 1. Sign up the user
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: callbackUrl,
+          data: {
+            name,
+            phone,
+          },
+        },
       });
 
       if (authError) throw authError;
 
-      // 2. Insert into profiles table
-      if (authData.user) {
+      if (authData.session && authData.user) {
         const { error: profileError } = await supabase
           .from('profiles')
           .insert([
@@ -42,11 +50,14 @@ export default function Register() {
           ]);
         
         if (profileError) throw profileError;
+
+        router.push('/dashboard');
+        return;
       }
 
-      router.push('/dashboard');
+      setError('Registration complete. Check your email to verify your account before signing in.');
     } catch (err) {
-      setError(err.message);
+      setError(err.message.includes('Email not confirmed') ? 'Please verify your email before signing in.' : err.message);
     } finally {
       setLoading(false);
     }
@@ -64,40 +75,44 @@ export default function Register() {
             <label className="block text-sm font-medium text-slate-700">Full Name</label>
             <input 
               type="text" 
+              placeholder="Enter your full name"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-600" 
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700">Phone Number</label>
             <input 
               type="tel" 
+              placeholder="Enter your phone number"
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-600" 
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700">Email</label>
             <input 
               type="email" 
+              placeholder="Enter your email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-600" 
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700">Password</label>
             <input 
               type="password" 
+              placeholder="Enter your password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder:text-slate-600" 
             />
           </div>
           <button 
@@ -110,6 +125,9 @@ export default function Register() {
         </form>
         <div className="mt-4 text-center text-sm">
           Already have an account? <Link href="/login" className="text-blue-600 hover:underline">Log In</Link>
+        </div>
+        <div className="mt-2 text-center text-sm text-slate-500">
+          After signing up, use the verification link in your inbox before logging in.
         </div>
       </div>
     </div>

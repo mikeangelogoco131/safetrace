@@ -1,4 +1,9 @@
-create table profiles (
+-- Migration: add contact_email, timestamps, alerts metadata, attempts table, and RLS policies
+-- Run this from your Supabase SQL editor or with psql against your Supabase DB.
+
+create extension if not exists pgcrypto;
+
+create table if not exists profiles (
   id uuid primary key,
   name text,
   phone text,
@@ -7,7 +12,7 @@ create table profiles (
   updated_at timestamp default now()
 );
 
-create table emergency_contacts (
+create table if not exists emergency_contacts (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references profiles(id) on delete cascade,
   contact_name text,
@@ -17,7 +22,7 @@ create table emergency_contacts (
   updated_at timestamp default now()
 );
 
-create table alerts (
+create table if not exists alerts (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references profiles(id) on delete cascade,
   latitude float,
@@ -28,7 +33,7 @@ create table alerts (
   updated_at timestamp default now()
 );
 
-create table emergency_notification_attempts (
+create table if not exists emergency_notification_attempts (
   id uuid primary key default gen_random_uuid(),
   alert_id uuid references alerts(id) on delete cascade,
   user_id uuid references profiles(id) on delete cascade,
@@ -43,6 +48,7 @@ create table emergency_notification_attempts (
   updated_at timestamp default now()
 );
 
+-- Trigger function to update `updated_at`
 create or replace function set_updated_at()
 returns trigger as $$
 begin
@@ -71,6 +77,7 @@ create trigger set_updated_at_emergency_notification_attempts
 before update on emergency_notification_attempts
 for each row execute function set_updated_at();
 
+-- Enable Row Level Security and add policies allowing users to operate on their own rows
 alter table profiles enable row level security;
 alter table emergency_contacts enable row level security;
 alter table alerts enable row level security;
@@ -133,6 +140,8 @@ create policy "attempts_insert_own"
 on emergency_notification_attempts for insert
 with check (auth.uid() = user_id);
 
+-- Keep existing databases in sync when the base tables were created before
+-- these fields existed.
 alter table emergency_contacts
   add column if not exists contact_email text;
 

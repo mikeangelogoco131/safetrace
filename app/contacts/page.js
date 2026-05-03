@@ -1,31 +1,31 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { Pencil, Trash2, Plus, X, User, Phone, Mail } from 'lucide-react';
+
+const getFriendlyError = (error) => {
+  if (!error) return '';
+
+  if (
+    error.code === 'PGRST205' ||
+    error.message?.includes("Could not find the table 'public.emergency_contacts'")
+  ) {
+    return 'Database setup is incomplete. Create .env.migration from .env.migration.example, add your Supabase database URL, then run: cmd /c npm run migrate:run';
+  }
+
+  return error.message || 'Something went wrong. Please try again.';
+};
 
 export default function Contacts() {
   const [contacts, setContacts] = useState([]);
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState({ id: null, contact_name: '', contact_phone: '', contact_email: '' });
 
-  useEffect(() => {
-    const fetchSessionAndContacts = async () => {
-      // Use getUser() for a more reliable check from local storage vs getSession()
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        setUserId(user.id);
-        fetchContacts(user.id);
-      } else {
-        setLoading(false);
-      }
-    };
-    fetchSessionAndContacts();
-  }, []);
-
-  const fetchContacts = async (uid) => {
+  const fetchContacts = useCallback(async (uid) => {
     setLoading(true);
     const { data, error } = await supabase
       .from('emergency_contacts')
@@ -35,9 +35,53 @@ export default function Contacts() {
     
     if (!error && data) {
       setContacts(data);
+      setErrorMessage('');
+    } else if (error) {
+      setErrorMessage(getFriendlyError(error));
     }
     setLoading(false);
-  };
+  }, []);
+
+  const sessionFetchStarted = useRef(false);
+
+  useEffect(() => {
+    if (sessionFetchStarted.current) return; // prevent duplicate runs (StrictMode/dev)
+    sessionFetchStarted.current = true;
+
+    const fetchSessionAndContacts = async () => {
+      try {
+        // Prefer getUser(); fall back to getSession() on lock/fallback errors
+        let user = null;
+        try {
+          const res = await supabase.auth.getUser();
+          user = res?.data?.user || null;
+        } catch (err) {
+          console.warn('supabase.auth.getUser() failed, falling back to getSession():', err?.message || err);
+        }
+
+        if (!user) {
+          const { data: { session }, error: sessionErr } = await supabase.auth.getSession();
+          if (sessionErr) {
+            console.warn('supabase.auth.getSession() error:', sessionErr.message || sessionErr);
+          }
+          user = session?.user || null;
+        }
+
+        if (user) {
+          setUserId(user.id);
+          fetchContacts(user.id);
+        } else {
+          setLoading(false);
+        }
+      } catch (err) {
+        // Generic fallback: show nothing but avoid crashing UI
+        console.error('Failed to fetch auth session:', err?.message || err);
+        setLoading(false);
+      }
+    };
+
+    fetchSessionAndContacts();
+  }, [fetchContacts]);
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -54,10 +98,11 @@ export default function Contacts() {
         .eq('id', formData.id);
       
       if (!error) {
+        setErrorMessage('');
         fetchContacts(userId);
         resetForm();
       } else {
-        alert(error.message);
+        setErrorMessage(getFriendlyError(error));
       }
     } else {
       // Insert new contact
@@ -66,10 +111,11 @@ export default function Contacts() {
         .insert([{ user_id: userId, contact_name: formData.contact_name, contact_phone: formData.contact_phone, contact_email: formData.contact_email }]);
       
       if (!error) {
+        setErrorMessage('');
         fetchContacts(userId);
         resetForm();
       } else {
-        alert(error.message);
+        setErrorMessage(getFriendlyError(error));
       }
     }
   };
@@ -82,9 +128,10 @@ export default function Contacts() {
         .eq('id', id);
       
       if (!error) {
+        setErrorMessage('');
         fetchContacts(userId);
       } else {
-        alert(error.message);
+        setErrorMessage(getFriendlyError(error));
       }
     }
   };
@@ -192,6 +239,12 @@ export default function Contacts() {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {errorMessage}
         </div>
       )}
 

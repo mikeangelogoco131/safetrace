@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { getUserOrSession } from '@/lib/getCurrentUser';
 import EmergencyButton from '@/components/EmergencyButton';
 
 export default function EmergencyPage() {
@@ -9,10 +10,9 @@ export default function EmergencyPage() {
 
   useEffect(() => {
     const fetchSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        setUserId(session.user.id);
-      }
+      const { user, session } = await getUserOrSession();
+      const effectiveUser = user || session?.user;
+      if (effectiveUser) setUserId(effectiveUser.id);
     };
     fetchSession();
   }, []);

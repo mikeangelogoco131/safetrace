@@ -1,0 +1,38 @@
+name: Run DB Migration
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+
+jobs:
+  migrate:
+    name: Run migration
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --progress=false
+
+      - name: Ensure migration secret exists
+        run: |
+          if [ -z "${{ secrets.MIGRATION_DATABASE_URL }}" ]; then
+            echo "MIGRATION_DATABASE_URL secret is not set. Aborting.";
+            exit 1;
+          fi
+
+      - name: Write .env.migration
+        run: |
+          echo "MIGRATION_DATABASE_URL=${{ secrets.MIGRATION_DATABASE_URL }}" > .env.migration
+
+      - name: Run migration script
+        run: node scripts/run-migration.js

@@ -15,13 +15,50 @@
 }
 
 body {
-  color: var(--foreground);
+  color: #0f172a;
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+input,
+textarea,
+select {
+  color: #0f172a;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #475569;
+  opacity: 1;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+:where(.text-slate-400) {
+  color: #475569;
+}
+
+:where(.text-slate-500) {
+  color: #334155;
+}
+
+:where(.text-slate-600, .text-slate-700, .text-slate-800, .text-slate-900) {
+  color: #0f172a;
+}
+
+:where(.placeholder\:text-slate-600)::placeholder {
+  color: #334155;
+  opacity: 1;
+}
+
+:where(.bg-slate-50.text-slate-500),
+input[disabled],
+input[readonly],
+textarea[disabled],
+textarea[readonly] {
+  color: #334155;
 }

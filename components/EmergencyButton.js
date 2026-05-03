@@ -2,90 +2,124 @@
 
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { getUserOrSession } from '@/lib/getCurrentUser';
 import { useRouter } from 'next/navigation';
-import { TriangleAlert, Loader2 } from 'lucide-react';
+import { TriangleAlert, Loader2, CheckCircle2, XCircle, Info } from 'lucide-react';
 
 export default function EmergencyButton({ userId }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [deliveryResult, setDeliveryResult] = useState(null);
   const router = useRouter();
 
+  const getStatusStyles = (status) => {
+    if (status === 'sent') {
+      return {
+        icon: CheckCircle2,
+        className: 'bg-green-50 text-green-800 border-green-200',
+        label: 'Sent',
+      };
+    }
+
+    if (status === 'failed') {
+      return {
+        icon: XCircle,
+        className: 'bg-red-50 text-red-800 border-red-200',
+        label: 'Failed',
+      };
+    }
+
+    return {
+      icon: Info,
+      className: 'bg-amber-50 text-amber-900 border-amber-200',
+      label: 'Skipped',
+    };
+  };
+
   const handleEmergency = async () => {
-    if (!userId) {
-      setError("User not authenticated.");
+    setLoading(true);
+    setError(null);
+    setDeliveryResult(null);
+
+    // Fetch current user/session at start
+    let { user, session } = await getUserOrSession();
+    
+    // Fallback: check localStorage for session if getUserOrSession failed
+    if (!session && typeof window !== 'undefined') {
+      try {
+        const storedSession = localStorage.getItem('sb-rtpectlhwrdeyhglbadu-auth-token');
+        if (storedSession) {
+          const parsed = JSON.parse(storedSession);
+          session = parsed;
+          user = parsed.user;
+        }
+      } catch (err) {
+        console.warn('Failed to read session from localStorage:', err);
+      }
+    }
+
+    const effectiveUser = user || session?.user;
+    const accessToken = session?.access_token;
+
+    if (!effectiveUser) {
+      setError("You must be signed in to trigger an emergency alert.");
+      setLoading(false);
       return;
     }
 
-    setLoading(true);
-    setError(null);
+    if (!accessToken) {
+      setError("Unable to obtain authorization token. Please sign in again.");
+      setLoading(false);
+      return;
+    }
 
-    // 1. Request GPS Permission & Location
+    // Request GPS Permission & Location
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
+          const accuracy = position.coords.accuracy;
+          const capturedAt = new Date(position.timestamp || Date.now()).toISOString();
 
           try {
-            // 2. Save location to Supabase alerts table
-            const { error: dbError } = await supabase
-              .from('alerts')
-              .insert([
-                { user_id: userId, latitude: lat, longitude: lng }
-              ]);
+            const response = await fetch('/api/emergency', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`,
+              },
+              body: JSON.stringify({
+                lat,
+                lng,
+                accuracy,
+                capturedAt,
+              })
+            });
 
-            if (dbError) throw dbError;
+            const payload = await response.json().catch(() => ({}));
 
-            // 3. Fetch contacts and profile, then simulate sending messages
-            const [{ data: contacts }, { data: profile }] = await Promise.all([
-              supabase.from('emergency_contacts').select('*').eq('user_id', userId),
-              supabase.from('profiles').select('name').eq('id', userId).single()
-            ]);
-
-            const userName = profile?.name || 'A SafeTrace user';
-            const alertMessage = `EMERGENCY ALERT: ${userName} has activated an emergency. Live Location: https://maps.google.com/?q=${lat},${lng}`;
-
-            if (contacts && contacts.length > 0) {
-              console.log("============= EMERGENCY DISPATCH STARTED =============");
-              
-              // Call our custom /api/emergency endpoint for real SMS/Email dispatching
-              try {
-                const response = await fetch('/api/emergency', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    contacts,
-                    userName,
-                    lat,
-                    lng
-                  })
-                });
-
-                if (response.ok) {
-                  alert(`Emergency successful! Alert securely sent to ${contacts.length} contact(s) via Text/Email.`);
-                } else {
-                  console.error("API Fetch Error", await response.json());
-                  alert("GPS saved! However, we couldn't reach Twilio/Resend. Check your API keys.");
-                }
-              } catch (dispatchError) {
-                console.error("Network Error", dispatchError);
-              }
-              
-              console.log("============= EMERGENCY DISPATCH COMPLETE =============");
-            } else {
-              alert("Emergency activated! But you have no contacts saved to notify.");
+            if (!response.ok) {
+              throw new Error(payload.error || 'Unable to dispatch emergency alert.');
             }
 
-            // 4. Redirect to Map page
-            router.push('/map');
+            setDeliveryResult(payload);
+            router.refresh();
             
           } catch (err) {
             setError(err.message || "Failed to save alert.");
+          } finally {
             setLoading(false);
           }
         },
         (geoError) => {
-          setError("Failed to obtain location. Please enable GPS permissions.");
+          const geoMessages = {
+            1: 'Location access was denied. Enable permissions in your browser settings and try again.',
+            2: 'Your device could not determine a location right now. Move to a clearer area and retry.',
+            3: 'Location lookup timed out. Retry once the GPS signal is stable.',
+          };
+
+          setError(geoMessages[geoError?.code] || 'Failed to obtain location. Please enable GPS permissions and try again.');
           setLoading(false);
         }
       );
@@ -104,6 +138,60 @@ export default function EmergencyButton({ userId }) {
       </p>
       
       {error && <p className="mb-4 text-red-500 font-medium">{error}</p>}
+
+      {deliveryResult && (
+        <div className="mb-6 w-full max-w-2xl rounded-md border border-slate-200 bg-slate-50 p-4 text-left">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="font-semibold text-slate-900">{deliveryResult.message}</p>
+              <p className="mt-1 text-sm text-slate-700">
+                Alert ID: {deliveryResult.alertId}
+              </p>
+            </div>
+            {deliveryResult.summary && (
+              <div className="shrink-0 rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm">
+                {deliveryResult.summary.sent}/{deliveryResult.summary.total} sent
+              </div>
+            )}
+          </div>
+
+          {deliveryResult.contacts?.length > 0 ? (
+            <div className="mt-4 space-y-3">
+              {deliveryResult.contacts.map((contact) => (
+                <div key={contact.contactId} className="rounded-md border border-slate-200 bg-white p-3">
+                  <p className="font-semibold text-slate-900">{contact.contactName || 'Emergency contact'}</p>
+                  <div className="mt-2 space-y-2">
+                    {contact.statuses?.map((status, index) => {
+                      const StatusIcon = getStatusStyles(status.status).icon;
+                      const statusStyles = getStatusStyles(status.status);
+
+                      return (
+                        <div
+                          key={`${status.channel}-${index}`}
+                          className={`flex items-start gap-2 rounded-md border px-3 py-2 text-sm ${statusStyles.className}`}
+                        >
+                          <StatusIcon size={16} className="mt-0.5 shrink-0" />
+                          <div>
+                            <p className="font-semibold capitalize">
+                              {status.channel}: {statusStyles.label}
+                            </p>
+                            {status.destination && <p>{status.destination}</p>}
+                            {status.message && <p className="mt-1">{status.message}</p>}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-3 text-sm text-slate-700">
+              No emergency contacts are saved yet. Add a contact to send SMS or email notifications.
+            </p>
+          )}
+        </div>
+      )}
       
       <button 
         onClick={handleEmergency}

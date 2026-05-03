@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { getUserOrSession } from '@/lib/getCurrentUser';
 import { User, Phone, Mail, KeyRound, Save } from 'lucide-react';
 
 export default function Profile() {
@@ -18,17 +19,18 @@ export default function Profile() {
   }, []);
 
   const fetchProfile = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session) {
-      setUserId(session.user.id);
-      const email = session.user.email;
-      
+    const { user, session } = await getUserOrSession();
+    const effectiveUser = user || session?.user;
+    if (effectiveUser) {
+      setUserId(effectiveUser.id);
+      const email = effectiveUser.email;
+
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('id', session.user.id)
+        .eq('id', effectiveUser.id)
         .single();
-        
+
       if (data) {
         setProfile({ name: data.name || '', phone: data.phone || '', email: email });
       } else {

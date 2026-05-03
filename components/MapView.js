@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, CircleMarker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { formatDate, formatTime } from '@/utils/formatDateTime';
 
 export default function MapView({ alerts, currentLocation }) {
   const [mounted, setMounted] = useState(false);
@@ -66,10 +67,10 @@ export default function MapView({ alerts, currentLocation }) {
               <div className="text-sm">
                 <p className="font-bold text-slate-800 mb-1">Emergency Alert</p>
                 <p className="text-slate-600 mb-1">
-                  <strong>Date:</strong> {new Date(alert.created_at).toLocaleDateString()}
+                  <strong>Date:</strong> {formatDate(alert.created_at)}
                 </p>
                 <p className="text-slate-600 mb-1">
-                  <strong>Time:</strong> {new Date(alert.created_at).toLocaleTimeString()}
+                  <strong>Time:</strong> {formatTime(alert.created_at)}
                 </p>
                 <p className="text-slate-600">
                   <strong>Lat:</strong> {alert.latitude.toFixed(6)}<br />
