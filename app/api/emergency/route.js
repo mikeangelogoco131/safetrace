@@ -4,9 +4,22 @@ import { Resend } from 'resend';
 import { createClient } from '@supabase/supabase-js';
 import { buildMapsUrl, normalizeE164Phone, safeErrorMessage } from '@/utils/helpers';
 
-// Initialize the clients (they expect variables from .env.local)
-const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize clients lazily so the route can build even if an env var is missing.
+function getTwilioClient() {
+  if (!process.env.TWILIO_ACCOUNT_SID || !process.env.TWILIO_AUTH_TOKEN) {
+    return null;
+  }
+
+  return twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+}
+
+function getResendClient() {
+  if (!process.env.RESEND_API_KEY) {
+    return null;
+  }
+
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 function getSupabaseServerClient(accessToken) {
   return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
@@ -101,6 +114,8 @@ export async function POST(request) {
       throw contactsError;
     }
 
+    const twilioClient = getTwilioClient();
+    const resend = getResendClient();
     const senderAddress = process.env.RESEND_FROM_EMAIL || 'SafeTrace Emergency <onboarding@resend.dev>';
     const attemptRows = [];
     const results = [];

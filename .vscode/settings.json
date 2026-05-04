@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "migrations/*.sql": "postgres",
+    "*.sql": "postgres"
+  },
+  "mssql.validateQuery": false
+}

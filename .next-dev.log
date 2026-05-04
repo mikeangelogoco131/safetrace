@@ -1,0 +1,263 @@
+
+> safetrace@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ○ Compiling /dashboard ...
+ ✓ Compiled /dashboard in 2.5s (706 modules)
+ GET /dashboard 200 in 2661ms
+ ✓ Compiled in 159ms (339 modules)
+ GET /dashboard 200 in 33ms
+ GET /dashboard 200 in 44ms
+ GET /dashboard 200 in 60ms
+ ✓ Compiled /favicon.ico in 310ms (381 modules)
+ GET /favicon.ico 200 in 396ms
+ ✓ Compiled /profile in 347ms (736 modules)
+ ✓ Compiled /login in 226ms (742 modules)
+ GET /dashboard 200 in 132ms
+ GET /favicon.ico 200 in 26ms
+ GET /profile 200 in 52ms
+ GET /favicon.ico 200 in 9ms
+ ○ Compiling /api/emergency ...
+ ✓ Compiled /api/emergency in 4s (1610 modules)
+ POST /api/emergency 200 in 7487ms
+ ○ Compiling /contacts ...
+ ✓ Compiled /contacts in 554ms (1945 modules)
+ ✓ Compiled in 569ms (726 modules)
+ ✓ Compiled in 610ms (728 modules)
+ ✓ Compiled in 141ms (356 modules)
+ ✓ Compiled in 184ms (356 modules)
+ ✓ Compiled in 157ms (356 modules)
+ ✓ Compiled in 125ms (356 modules)
+ ✓ Compiled in 113ms (356 modules)
+ ✓ Compiled in 596ms (728 modules)
+ ✓ Compiled in 394ms (728 modules)
+ GET /dashboard 200 in 331ms
+ ✓ Compiled /favicon.ico in 330ms (404 modules)
+ GET /favicon.ico 200 in 463ms
+ ✓ Compiled in 219ms (356 modules)
+ ✓ Compiled in 160ms (356 modules)
+ GET /dashboard 200 in 183ms
+ GET /favicon.ico 200 in 29ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\1.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\1.pack.gz'
+ ✓ Compiled in 749ms (760 modules)
+ ✓ Compiled in 491ms (730 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz'
+ ○ Compiling /alerts ...
+ ✓ Compiled /alerts in 650ms (726 modules)
+ ○ Compiling /map ...
+ ✓ Compiled /map in 1073ms (847 modules)
+ GET /dashboard 200 in 194ms
+ ✓ Compiled /favicon.ico in 194ms (456 modules)
+ GET /favicon.ico 200 in 347ms
+ ✓ Compiled in 673ms (836 modules)
+ ✓ Compiled /profile in 187ms (431 modules)
+ ✓ Compiled /_not-found in 357ms (832 modules)
+ GET /login 404 in 200ms
+ GET /login 404 in 60ms
+ ✓ Compiled /favicon.ico in 200ms (464 modules)
+ GET /favicon.ico 200 in 325ms
+ GET /login 404 in 132ms
+ ✓ Compiled in 489ms (878 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\server-development\4.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\server-development\4.pack.gz'
+ ✓ Compiled /emergency in 450ms (829 modules)
+ ✓ Compiled in 758ms (791 modules)
+ ✓ Compiled in 453ms (777 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\server-development\0.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\server-development\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 433ms (791 modules)
+ ✓ Compiled in 389ms (777 modules)
+ ✓ Compiled in 425ms (791 modules)
+ ✓ Compiled /_not-found in 292ms (780 modules)
+ GET /emergency 200 in 177ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz'
+ ○ Compiling /api/emergency ...
+ ✓ Compiled /api/emergency in 6.9s (1596 modules)
+[emergency-route] Twilio send failed {
+  contactId: '7037d82d-1588-4fdf-9095-13985416c2b0',
+  error: 'The number +63912582XXXX is unverified. Trial accounts cannot send messages to unverified numbers; verify +63912582XXXX at twilio.com/user/account/phone-numbers/verified, or purchase a Twilio number to send messages to unverified numbers'
+}
+ POST /api/emergency 200 in 15329ms
+ ✓ Compiled in 962ms (791 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 447ms (791 modules)
+ ✓ Compiled in 707ms (791 modules)
+ ✓ Compiled in 236ms (414 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+- C:\Users\Mike Angelo\safetrace\.next\server\app\dashboard\page.js
+- C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+- C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+- C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+- C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1410:15)
+    at C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1051:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1056:22)
+    at Module._load (node:internal/modules/cjs/loader:1219:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:238:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1493:12)
+    at mod.require (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js:198:28)
+    at C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js:162:22)
+    at C:\Users\Mike Angelo\safetrace\.next\server\app\profile\page.js:1:13880
+    at Object.<anonymous> (C:\Users\Mike Angelo\safetrace\.next\server\app\profile\page.js:1:13930)
+    at Module._compile (node:internal/modules/cjs/loader:1738:14)
+    at Object..js (node:internal/modules/cjs/loader:1871:10)
+    at Module.load (node:internal/modules/cjs/loader:1470:32)
+    at Module._load (node:internal/modules/cjs/loader:1290:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:238:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1493:12)
+    at mod.require (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js:109:84)
+    at C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\base-server.js:818:17)
+    at async C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\Mike Angelo\\safetrace\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\.next\\server\\app\\dashboard\\page.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Users\\Mike Angelo\\safetrace\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/profile'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 8.9s (1003 modules)
+ GET /dashboard 200 in 4250ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 3.3s (1006 modules)
+ GET /_next/static/css/app/layout.css?v=1777815422164 404 in 4034ms
+ GET /_next/static/chunks/main-app.js?v=1777815422164 404 in 4142ms
+ GET /_next/static/chunks/app/dashboard/page.js 404 in 4139ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 4139ms
+ GET /_next/static/chunks/app/layout.js 404 in 4037ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 990ms (450 modules)
+ GET /favicon.ico 200 in 1250ms
+ GET /profile 200 in 377ms
+ GET /_next/static/css/app/layout.css?v=1777815437167 404 in 210ms
+ GET /_next/static/chunks/app/profile/page.js 404 in 284ms
+ GET /_next/static/chunks/main-app.js?v=1777815437167 404 in 288ms
+ GET /_next/static/chunks/app/layout.js 404 in 286ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 286ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\iceberg-js.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/iceberg-js' in C:\Users\Mike Angelo\safetrace\.next\server for build dependencies doesn't lead to expected result 'C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\iceberg-js.js', but to 'Error: Can't resolve './vendor-chunks/iceberg-js' in 'C:\Users\Mike Angelo\safetrace\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/iceberg-js (expected C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\iceberg-js.js)
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+<w>  at file C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/@supabase' in C:\Users\Mike Angelo\safetrace\.next\server for build dependencies doesn't lead to expected result 'C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\@supabase.js', but to 'Error: Can't resolve './vendor-chunks/@supabase' in 'C:\Users\Mike Angelo\safetrace\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/@supabase (expected C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\@supabase.js)
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+<w>  at file C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/lucide-react' in C:\Users\Mike Angelo\safetrace\.next\server for build dependencies doesn't lead to expected result 'C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\lucide-react.js', but to 'Error: Can't resolve './vendor-chunks/lucide-react' in 'C:\Users\Mike Angelo\safetrace\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/lucide-react (expected C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\lucide-react.js)
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+<w>  at file C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/tslib' in C:\Users\Mike Angelo\safetrace\.next\server for build dependencies doesn't lead to expected result 'C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\tslib.js', but to 'Error: Can't resolve './vendor-chunks/tslib' in 'C:\Users\Mike Angelo\safetrace\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/tslib (expected C:\Users\Mike Angelo\safetrace\.next\server\vendor-chunks\tslib.js)
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+<w>  at file C:\Users\Mike Angelo\safetrace\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ○ Compiling /api/emergency ...
+ ✓ Compiled /api/emergency in 7.9s (1635 modules)
+ POST /api/emergency 200 in 17551ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 845ms (2237 modules)
+ GET /_next/static/css/app/layout.css?v=1777880805215 404 in 1097ms
+ ✓ Compiled in 490ms (1015 modules)
+ ✓ Compiled in 716ms (599 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\2.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\2.pack.gz'
+ ✓ Compiled in 1970ms (1015 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/_not-found/page' in C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js', but to 'Error: Can't resolve '../../../../.next/server/app/_not-found/page' in 'C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/_not-found/page (expected C:\Users\Mike Angelo\safetrace\.next\server\app\_not-found\page.js)
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js

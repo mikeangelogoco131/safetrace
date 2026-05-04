@@ -63,20 +63,19 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-7xl mx-auto space-y-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">
-          Welcome, {profile?.name || "User"}
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+          Welcome, {profile?.name || "User"} 👋
         </h1>
-        <p className="text-slate-500 mt-2">Manage your safety traces and emergency contacts seamlessly.</p>
+        <p className="text-slate-500 mt-2 font-medium">Stay safe and connected with your emergency contacts.</p>
       </div>
 
       {authChecked && !userId && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
-          <p className="font-semibold">No active sign-in was found on this browser tab.</p>
-          <p className="mt-1 text-sm">
-            If you signed in on a different port or tab, log in again here: {currentOrigin}/login.
-            The emergency button will stay disabled until this tab has a Supabase session.
+        <div className="rounded-xl border border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 p-5 text-amber-900 shadow-sm">
+          <p className="font-bold flex items-center gap-2"><span>⚠️</span> Session Not Found</p>
+          <p className="mt-2 text-sm">
+            Your session wasn't found on this tab. Log in again at {currentOrigin}/login to activate the emergency button.
           </p>
         </div>
       )}
@@ -89,29 +88,31 @@ export default function Dashboard() {
       
       <EmergencyButton userId={userId} />
       
-      <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mt-8">
-        <h3 className="text-xl font-bold text-slate-800 mb-4">Recent Alerts</h3>
+      <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-slate-200/40 mt-8">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">Recent Alerts</h3>
+          <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-semibold">{recentAlerts.length}</span>
+        </div>
         {recentAlerts.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-slate-700">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-gradient-to-r from-slate-50 to-blue-50 border-b border-slate-200">
                 <tr>
-                  <th className="py-3 px-4 font-semibold">Date & Time</th>
-                  <th className="py-3 px-4 font-semibold">Latitude</th>
-                  <th className="py-3 px-4 font-semibold">Longitude</th>
-                  <th className="py-3 px-4 font-semibold text-right">Status</th>
+                  <th className="py-4 px-6 font-bold text-slate-800 text-sm">Date & Time</th>
+                  <th className="py-4 px-6 font-bold text-slate-800 text-sm">Latitude</th>
+                  <th className="py-4 px-6 font-bold text-slate-800 text-sm">Longitude</th>
+                  <th className="py-4 px-6 font-bold text-slate-800 text-sm text-right">Status</th>
                 </tr>
               </thead>
               <tbody>
-                {recentAlerts.map(alert => (
-                  <tr key={alert.id} className="border-b border-slate-100 hover:bg-slate-50 transition">
-                    <td className="py-3 px-4">
-                      {formatDateTime(alert.created_at)}
-                    </td>
-                    <td className="py-3 px-4">{alert.latitude.toFixed(6)}</td>
-                    <td className="py-3 px-4">{alert.longitude.toFixed(6)}</td>
-                    <td className="py-3 px-4 text-right">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                {recentAlerts.map((alert, idx) => (
+                  <tr key={alert.id} className="border-b border-slate-100 hover:bg-blue-50/50 transition duration-150">
+                    <td className="py-4 px-6 font-medium text-slate-900">{formatDateTime(alert.created_at)}</td>
+                    <td className="py-4 px-6 font-mono text-sm text-slate-600">{alert.latitude.toFixed(6)}</td>
+                    <td className="py-4 px-6 font-mono text-sm text-slate-600">{alert.longitude.toFixed(6)}</td>
+                    <td className="py-4 px-6 text-right">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-red-100 to-pink-100 text-red-700 shadow-sm">
+                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
                         Dispatched
                       </span>
                     </td>
@@ -121,7 +122,10 @@ export default function Dashboard() {
             </table>
           </div>
         ) : (
-          <p className="text-slate-500 text-center py-6 bg-slate-50 rounded-lg border border-dashed border-slate-200">No emergency alerts recorded yet.</p>
+          <div className="text-center py-12 bg-gradient-to-br from-slate-50 to-blue-50/30 rounded-xl border border-dashed border-slate-300">
+            <p className="text-slate-500 text-lg">📭 No emergency alerts yet</p>
+            <p className="text-slate-400 text-sm mt-2">Your alert history will appear here</p>
+          </div>
         )}
       </div>
     </div>
