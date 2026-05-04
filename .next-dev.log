@@ -261,3 +261,14 @@ Require stack:
 <w>  at file dependencies C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
 <w>  at file C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
 <w>  at resolve commonjs C:\Users\Mike Angelo\safetrace\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ✓ Compiled in 1181ms (1015 modules)
+ ✓ Compiled in 493ms (1015 modules)
+ ✓ Compiled in 448ms (1015 modules)
+ ✓ Compiled in 399ms (1015 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 288ms (599 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 1251ms (1015 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\server-development\0.pack.gz_' -> 'C:\Users\Mike Angelo\safetrace\.next\cache\webpack\server-development\0.pack.gz'
+   Reload env: .env.local
+   Reload env: .env.local
