@@ -75,7 +75,7 @@ export default function Dashboard() {
         <div className="rounded-xl border border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 p-5 text-amber-900 shadow-sm">
           <p className="font-bold flex items-center gap-2"><span>⚠️</span> Session Not Found</p>
           <p className="mt-2 text-sm">
-            Your session wasn't found on this tab. Log in again at {currentOrigin}/login to activate the emergency button.
+            Your session wasn&apos;t found on this tab. Log in again at {currentOrigin}/login to activate the emergency button.
           </p>
         </div>
       )}
